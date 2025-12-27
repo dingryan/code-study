@@ -1,0 +1,171 @@
+/* 订单详情页样式 */
+.container {
+  min-height: 100vh;
+  padding: 20rpx;
+  padding-bottom: 120rpx;
+}
+
+.order-header {
+  background: white;
+  padding: 30rpx;
+  border-radius: 15rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.order-status {
+  font-size: 36rpx;
+  color: #4A90E2;
+  font-weight: bold;
+}
+
+.order-no {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.order-items {
+  background: white;
+  padding: 30rpx;
+  border-radius: 15rpx;
+  margin-bottom: 20rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.order-item-product {
+  display: flex;
+  align-items: center;
+  gap: 15rpx;
+  margin-bottom: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.order-item-product:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.product-image {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 10rpx;
+  background-color: #f0f0f0;
+}
+
+.product-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5rpx;
+}
+
+.product-name {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.product-quantity {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.product-price {
+  font-size: 32rpx;
+  color: #4A90E2;
+  font-weight: bold;
+}
+
+.order-address {
+  background: white;
+  padding: 30rpx;
+  border-radius: 15rpx;
+  margin-bottom: 20rpx;
+}
+
+.address-text {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 10rpx;
+}
+
+.order-info {
+  background: white;
+  padding: 30rpx;
+  border-radius: 15rpx;
+  margin-bottom: 20rpx;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+.info-label {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.info-value {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+.order-actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 20rpx;
+  padding: 20rpx;
+  background: white;
+  box-shadow: 0 -2rpx 10rpx rgba(0,0,0,0.1);
+}
+
+.btn-secondary {
+  flex: 1;
+  background: white;
+  color: #4A90E2;
+  border: 1rpx solid #4A90E2;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  text-align: center;
+  font-size: 32rpx;
+}
+
+.btn-primary {
+  flex: 2;
+  background-color: #4A90E2;
+  color: white;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  text-align: center;
+  font-size: 32rpx;
+}
+
+.loading {
+  text-align: center;
+  padding: 200rpx 0;
+  color: #999;
+  font-size: 28rpx;
+}
+

@@ -1,0 +1,92 @@
+# 测试数据
+
+login: # 登陆地址
+  dev:
+    url: http://10.240.10.202:9002/swhysc/service
+    work_no: 505050
+    password: UP5Qt45Mq2jbfOYVokx3Vw==
+    mobile: 18896515327
+    url_s: http://192.168.27.43:8084
+
+  qa:
+    url: http://10.240.5.83:8002/swhysc/service
+    work_no: 222222
+    password: UP5Qt45Mq2jbfOYVokx3Vw==
+    mobile: 18896515327
+    url_s: http://172.16.129.147:8084
+
+Center: # 运营中台地址
+  dev:
+    url: http://10.240.10.202:9002/swhysc/service
+
+  qa:
+    url: http://10.240.5.83:9002/swhysc/service
+
+Mysql: # 运营中台数据库
+  dev:
+    host: 192.168.154.241
+    port: 15104
+    user: scyd_ydmanage
+    passwd: KE=qUwMFs4DQ
+    db: scyd_ydmanage
+    charset: utf8
+
+  qa:
+    host: 192.168.144.242
+    port: 15104
+    user: scyd_ydmanage
+    passwd: Scyd818!QAZ@WSX
+    db: scyd_ydmanage
+    charset: utf8
+
+
+
+Stock_Mysql: # 自选股数据库
+  dev:
+    host: 192.168.154.241
+    port: 15103
+    user: scyd_ydstock
+    passwd: KE=qUwMFs4DQ
+    db: scyd_ydstock
+    charset: utf8
+
+  qa:
+    host: 192.168.144.242
+    port: 15103
+    user: scyd_ydstock
+    passwd: Scyd818!QAZ@WSX
+    db: scyd_ydstock
+    charset: utf8
+
+  os:
+    host: 192.168.144.240
+    port: 15504
+    user: scyd_ydstock
+    passwd: Scyd818!QAZ@WSX
+    db: scyd_ydstock
+    charset: utf8
+
+Account_Mysql: # 账户数据库
+  dev:
+    host: 192.168.154.241
+    port: 15102
+    user: scyd_ydaccount
+    passwd: KE=qUwMFs4DQ
+    db: scyd_ydaccount
+    charset: utf8
+
+  qa:
+    host: 192.168.144.240
+    port: 15102
+    user: scyd_ydaccount
+    passwd: Scyd818!QAZ@WSX
+    db: scyd_ydaccount
+    charset: utf8
+
+  os:
+    host: 192.168.144.240
+    port: 15503
+    user: scyd_ydaccount
+    passwd: Scyd818!QAZ@WSX
+    db: scyd_ydaccount
+    charset: utf8

@@ -1,0 +1,132 @@
+/* 商品详情页样式 */
+.container {
+  min-height: 100vh;
+  padding-bottom: 120rpx;
+}
+
+.product-image {
+  width: 100%;
+  height: 500rpx;
+  background-color: #f0f0f0;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI2YwZjBmMCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LXNpemU9IjI0IiBmaWxsPSIjOTk5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+5Zu+54mH5pyN5YqhPC90ZXh0Pjwvc3ZnPg==');
+  background-size: cover;
+  background-position: center;
+}
+
+.product-info {
+  background: white;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.product-name {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.product-price {
+  font-size: 48rpx;
+  color: #4A90E2;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.product-desc {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.6;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.product-stock {
+  font-size: 26rpx;
+  color: #999;
+  display: block;
+}
+
+.quantity-selector {
+  background: white;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label {
+  font-size: 30rpx;
+  color: #333;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.quantity-btn {
+  width: 60rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  border: 1rpx solid #ddd;
+  background: white;
+  border-radius: 5rpx;
+  font-size: 32rpx;
+}
+
+.quantity-btn[disabled] {
+  opacity: 0.5;
+}
+
+.quantity-value {
+  font-size: 32rpx;
+  min-width: 60rpx;
+  text-align: center;
+}
+
+.actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 20rpx;
+  padding: 20rpx;
+  background: white;
+  box-shadow: 0 -2rpx 10rpx rgba(0,0,0,0.1);
+}
+
+.btn-secondary {
+  flex: 1;
+  background: white;
+  color: #4A90E2;
+  border: 1rpx solid #4A90E2;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  text-align: center;
+  font-size: 32rpx;
+}
+
+.btn-primary {
+  flex: 2;
+  background-color: #4A90E2;
+  color: white;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  text-align: center;
+  font-size: 32rpx;
+}
+
+.loading {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #999;
+  font-size: 28rpx;
+}
+

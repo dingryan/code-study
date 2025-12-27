@@ -1,0 +1,39 @@
+<!-- 首页 -->
+<view class="container">
+  <view class="banner">
+    <text class="banner-text">欢迎使用网上订水</text>
+  </view>
+  
+  <view class="products" wx:if="{{products.length > 0}}">
+    <view 
+      class="product-item" 
+      wx:for="{{products}}" 
+      wx:key="id"
+      bindtap="goToProduct"
+      data-id="{{item.id}}"
+    >
+      <image 
+        class="product-image" 
+        src="{{item.image_url || ''}}" 
+        mode="aspectFill"
+        binderror="onImageError"
+        data-index="{{index}}"
+        lazy-load="{{true}}"
+      ></image>
+      <view class="product-info">
+        <text class="product-name">{{item.name}}</text>
+        <text class="product-desc" wx:if="{{item.description}}">{{item.description}}</text>
+        <view class="product-footer">
+          <text class="product-price">¥{{item.price}}</text>
+          <text class="product-stock" wx:if="{{item.stock > 0}}">库存: {{item.stock}}</text>
+          <text class="product-stock out-of-stock" wx:else>缺货</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="empty" wx:else>
+    <text>暂无商品</text>
+  </view>
+</view>
+

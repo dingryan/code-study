@@ -1,0 +1,29 @@
+# 网上订水小程序配置文件
+# 请根据实际情况修改配置
+
+# 应用配置
+app_name: "网上订水 API"
+debug: true
+environment: "dev"  # dev 开发环境, prod 生产环境
+
+# 数据库配置（MySQL）
+database_url: "mysql+pymysql://admin:123456@127.0.0.1:3306/water_ordering?charset=utf8mb4"
+
+# JWT 配置
+secret_key: "development-secret-key-change-in-production-min-32-chars"
+algorithm: "HS256"
+access_token_expire_minutes: 30
+
+# CORS 配置（允许的域名）
+cors_origins:
+  - "*"
+
+# 验证码配置
+code_expire_minutes: 5  # 验证码有效期（分钟）
+
+# 微信配置（保留，可能后续需要）
+wechat_app_id: "wxb258d0b78937bdd5"
+wechat_app_secret: "8011b9625bfd982e038f0c31f453d8ff"
+wechat_mch_id: ""
+wechat_api_key: ""
+

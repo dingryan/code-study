@@ -1,0 +1,92 @@
+<!-- 地址编辑页 -->
+<view class="container">
+  <view class="form">
+    <view class="form-item">
+      <text class="label">收货人</text>
+      <input 
+        class="input" 
+        type="text" 
+        placeholder="请输入收货人姓名"
+        value="{{name}}"
+        bindinput="onNameInput"
+      />
+    </view>
+    
+    <view class="form-item">
+      <text class="label">手机号</text>
+      <input 
+        class="input" 
+        type="number" 
+        placeholder="请输入手机号"
+        value="{{phone}}"
+        bindinput="onPhoneInput"
+        maxlength="11"
+      />
+    </view>
+    
+    <view class="form-item">
+      <text class="label">省份</text>
+      <input 
+        class="input" 
+        type="text" 
+        placeholder="请输入省份"
+        value="{{province}}"
+        bindinput="onProvinceInput"
+      />
+    </view>
+    
+    <view class="form-item">
+      <text class="label">城市</text>
+      <input 
+        class="input" 
+        type="text" 
+        placeholder="请输入城市"
+        value="{{city}}"
+        bindinput="onCityInput"
+      />
+    </view>
+    
+    <view class="form-item">
+      <text class="label">区县</text>
+      <input 
+        class="input" 
+        type="text" 
+        placeholder="请输入区县"
+        value="{{district}}"
+        bindinput="onDistrictInput"
+      />
+    </view>
+    
+    <view class="form-item">
+      <text class="label">详细地址</text>
+      <textarea 
+        class="textarea" 
+        placeholder="请输入详细地址"
+        value="{{detail}}"
+        bindinput="onDetailInput"
+        maxlength="200"
+      />
+    </view>
+    
+    <view class="form-item">
+      <view class="location-btn" bindtap="chooseLocation">
+        <text class="location-icon">📍</text>
+        <text>选择位置</text>
+      </view>
+    </view>
+    
+    <view class="form-item checkbox-item">
+      <text class="label">设为默认地址</text>
+      <switch 
+        checked="{{isDefault}}"
+        bindchange="onDefaultChange"
+        color="#4A90E2"
+      />
+    </view>
+  </view>
+  
+  <button class="save-btn" bindtap="saveAddress">
+    {{action === 'add' ? '保存' : '更新'}}
+  </button>
+</view>
+

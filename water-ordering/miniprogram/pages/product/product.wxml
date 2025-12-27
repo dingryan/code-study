@@ -1,0 +1,36 @@
+<!-- 商品详情页 -->
+<view class="container" wx:if="{{product}}">
+  <image 
+    class="product-image" 
+    src="{{product.image_url || ''}}" 
+    mode="aspectFill"
+    binderror="onImageError"
+    lazy-load="{{true}}"
+  ></image>
+  
+  <view class="product-info">
+    <text class="product-name">{{product.name}}</text>
+    <text class="product-price">¥{{product.price}}</text>
+    <text class="product-desc" wx:if="{{product.description}}">{{product.description}}</text>
+    <text class="product-stock">库存: {{product.stock}}</text>
+  </view>
+  
+  <view class="quantity-selector">
+    <text class="label">数量:</text>
+    <view class="quantity-controls">
+      <button class="quantity-btn" bindtap="decreaseQuantity" disabled="{{quantity <= 1}}">-</button>
+      <text class="quantity-value">{{quantity}}</text>
+      <button class="quantity-btn" bindtap="increaseQuantity" disabled="{{quantity >= product.stock}}">+</button>
+    </view>
+  </view>
+  
+  <view class="actions">
+    <button class="btn-secondary" bindtap="addToCart">加入购物车</button>
+    <button class="btn-primary" bindtap="buyNow">立即购买</button>
+  </view>
+</view>
+
+<view class="loading" wx:else>
+  <text>加载中...</text>
+</view>
+

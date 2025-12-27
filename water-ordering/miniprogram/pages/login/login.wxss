@@ -1,0 +1,110 @@
+/* 登录页样式 */
+.container {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding: 40rpx;
+}
+
+.header {
+  text-align: center;
+  margin-top: 100rpx;
+  margin-bottom: 80rpx;
+}
+
+.title {
+  display: block;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.subtitle {
+  display: block;
+  font-size: 28rpx;
+  color: #999;
+}
+
+.form {
+  background: white;
+  border-radius: 20rpx;
+  padding: 60rpx 40rpx;
+}
+
+.input-group {
+  margin-bottom: 40rpx;
+}
+
+.label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.input {
+  width: 100%;
+  height: 88rpx;
+  background: #f5f5f5;
+  border-radius: 10rpx;
+  padding: 0 30rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.code-row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.code-input {
+  flex: 1;
+}
+
+.send-btn {
+  width: 200rpx;
+  height: 88rpx;
+  background: #4A90E2;
+  color: white;
+  border-radius: 10rpx;
+  font-size: 26rpx;
+  padding: 0;
+  line-height: 88rpx;
+  border: none;
+}
+
+.send-btn.disabled {
+  background: #ccc;
+  color: #999;
+}
+
+.dev-code {
+  margin-top: 20rpx;
+  padding: 20rpx;
+  background: #fff3cd;
+  border-radius: 10rpx;
+  text-align: center;
+}
+
+.dev-code-text {
+  font-size: 24rpx;
+  color: #856404;
+}
+
+.login-btn {
+  width: 100%;
+  height: 88rpx;
+  background: #4A90E2;
+  color: white;
+  border-radius: 10rpx;
+  font-size: 32rpx;
+  margin-top: 40rpx;
+  border: none;
+  line-height: 88rpx;
+}
+
+.login-btn::after {
+  border: none;
+}
+

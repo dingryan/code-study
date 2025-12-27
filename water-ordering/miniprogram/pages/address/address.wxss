@@ -1,0 +1,133 @@
+/* 地址管理页样式 */
+.container {
+  min-height: 100vh;
+  padding: 20rpx;
+  padding-bottom: 120rpx;
+}
+
+.select-tip {
+  padding: 20rpx;
+  background: #f0f7ff;
+  color: #4A90E2;
+  text-align: center;
+  font-size: 28rpx;
+  margin-bottom: 20rpx;
+  border-radius: 10rpx;
+}
+
+.address-item.selectable .address-content {
+  cursor: pointer;
+}
+
+.address-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.address-item {
+  background: white;
+  border-radius: 15rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0,0,0,0.1);
+}
+
+.address-content {
+  margin-bottom: 20rpx;
+}
+
+.address-header {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  margin-bottom: 15rpx;
+}
+
+.name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.phone {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.default-tag {
+  background: #4A90E2;
+  color: white;
+  font-size: 22rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 4rpx;
+}
+
+.address-text {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.6;
+}
+
+.address-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.edit-btn, .delete-btn {
+  font-size: 26rpx;
+  padding: 10rpx 20rpx;
+  border-radius: 5rpx;
+  background: none;
+  border: 1rpx solid #ddd;
+}
+
+.edit-btn {
+  color: #4A90E2;
+  border-color: #4A90E2;
+}
+
+.delete-btn {
+  color: #ff4444;
+  border-color: #ff4444;
+}
+
+.empty {
+  text-align: center;
+  padding: 200rpx 0;
+  color: #999;
+  font-size: 28rpx;
+}
+
+.btn-primary {
+  background-color: #4A90E2;
+  color: white;
+  border-radius: 10rpx;
+  padding: 20rpx 40rpx;
+  font-size: 28rpx;
+  margin-top: 20rpx;
+}
+
+.add-btn {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #4A90E2;
+  color: white;
+  border-radius: 0;
+  padding: 30rpx;
+  font-size: 32rpx;
+}
+
+.btn-primary {
+  background-color: #4A90E2;
+  color: white;
+  border-radius: 10rpx;
+  padding: 20rpx 40rpx;
+  font-size: 28rpx;
+  margin-top: 20rpx;
+}
+

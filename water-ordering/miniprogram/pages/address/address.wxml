@@ -1,0 +1,39 @@
+<!-- 地址管理页 -->
+<view class="container">
+  <view class="select-tip" wx:if="{{isSelectMode}}">
+    <text>请选择收货地址</text>
+  </view>
+  
+  <view class="address-list" wx:if="{{addresses.length > 0}}">
+    <view 
+      class="address-item {{isSelectMode ? 'selectable' : ''}}" 
+      wx:for="{{addresses}}" 
+      wx:key="id"
+    >
+      <view 
+        class="address-content" 
+        bindtap="{{isSelectMode ? 'selectAddress' : ''}}"
+        data-id="{{item.id}}"
+      >
+        <view class="address-header">
+          <text class="name">{{item.name}}</text>
+          <text class="phone">{{item.phone}}</text>
+          <text class="default-tag" wx:if="{{item.is_default}}">默认</text>
+        </view>
+        <text class="address-text">{{item.province}}{{item.city}}{{item.district}}{{item.detail}}</text>
+      </view>
+      <view class="address-actions" wx:if="{{!isSelectMode}}" catchtap="stopPropagation">
+        <button class="edit-btn" bindtap="editAddress" data-id="{{item.id}}">编辑</button>
+        <button class="delete-btn" bindtap="deleteAddress" data-id="{{item.id}}">删除</button>
+      </view>
+    </view>
+  </view>
+  
+  <view class="empty" wx:else>
+    <text>暂无地址</text>
+    <button class="btn-primary" bindtap="addAddress" wx:if="{{isSelectMode}}">添加地址</button>
+  </view>
+  
+  <button class="add-btn" bindtap="addAddress" wx:if="{{!isSelectMode}}">+ 添加地址</button>
+</view>
+

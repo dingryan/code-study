@@ -1,0 +1,36 @@
+<!-- 订单列表页 -->
+<view class="container">
+  <view class="orders" wx:if="{{orders.length > 0}}">
+    <view 
+      class="order-item" 
+      wx:for="{{orders}}" 
+      wx:key="id"
+      bindtap="goToOrderDetail"
+      data-id="{{item.id}}"
+    >
+      <view class="order-header">
+        <text class="order-no">订单号: {{item.order_no}}</text>
+        <text class="order-status">{{item.status_text}}</text>
+      </view>
+      <view class="order-items">
+        <view class="order-item-product" wx:for="{{item.items}}" wx:key="id" wx:for-item="orderItem">
+          <image class="product-image" src="{{orderItem.product_image || '/images/placeholder.png'}}" mode="aspectFill"></image>
+          <view class="product-info">
+            <text class="product-name">{{orderItem.product_name}}</text>
+            <text class="product-quantity">x{{orderItem.quantity}}</text>
+          </view>
+          <text class="product-price">¥{{orderItem.price}}</text>
+        </view>
+      </view>
+      <view class="order-footer">
+        <text class="order-time">{{item.created_at}}</text>
+        <text class="order-total">合计: ¥{{item.total_amount}}</text>
+      </view>
+    </view>
+  </view>
+  
+  <view class="empty" wx:else>
+    <text>暂无订单</text>
+  </view>
+</view>
+

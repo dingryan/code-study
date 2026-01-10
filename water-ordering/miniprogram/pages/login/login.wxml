@@ -41,11 +41,6 @@
       </view>
     </view>
     
-    <!-- 开发环境显示验证码 -->
-    <view class="dev-code" wx:if="{{devCode}}">
-      <text class="dev-code-text">开发环境验证码: {{devCode}}</text>
-    </view>
-    
     <!-- 登录按钮 -->
     <button class="login-btn" bindtap="login">登录</button>
   </view>

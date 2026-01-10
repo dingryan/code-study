@@ -100,49 +100,29 @@ Page({
       return;
     }
     
+    // 先保存订单信息到 globalData
+    const app = getApp();
+    app.globalData.pendingOrder = {
+      items: [{
+        product_id: product.id,
+        product_name: product.name,
+        product_image: product.image_url,
+        price: product.price,
+        quantity: this.data.quantity
+      }]
+    };
+    
     // 检查登录状态
     const auth = require('../../utils/auth');
     if (!auth.requireLogin()) {
+      // 未登录，已保存订单信息，跳转到登录页
       return;
     }
     
-    try {
-      wx.showLoading({ title: '创建订单中...' });
-      
-      const addresses = await api.get('/api/addresses/');
-      if (!addresses || addresses.length === 0) {
-        wx.hideLoading();
-        wx.showToast({ title: '请先添加收货地址', icon: 'none' });
-        setTimeout(() => {
-          wx.navigateTo({
-            url: '/pages/address/address'
-          });
-        }, 1500);
-        return;
-      }
-      
-      const address = addresses.find(addr => addr.is_default) || addresses[0];
-      
-      const orderData = {
-        address_id: address.id,
-        items: [{
-          product_id: product.id,
-          quantity: this.data.quantity,
-          price: product.price
-        }]
-      };
-      
-      const order = await api.post('/api/orders/', orderData);
-      wx.hideLoading();
-      
-      wx.navigateTo({
-        url: `/pages/order-detail/order-detail?id=${order.id}`
-      });
-      
-    } catch (error) {
-      wx.hideLoading();
-      wx.showToast({ title: error.message || '创建订单失败', icon: 'none' });
-    }
+    // 已登录，直接跳转到订单确认页
+    wx.navigateTo({
+      url: '/pages/checkout/checkout'
+    });
   },
   
   /**

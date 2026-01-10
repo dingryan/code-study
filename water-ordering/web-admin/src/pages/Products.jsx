@@ -9,6 +9,11 @@ function Products() {
   const [loading, setLoading] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState('');
+  const [uploading, setUploading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -18,6 +23,26 @@ function Products() {
     is_active: true
   });
   const navigate = useNavigate();
+
+  // 错误提示5秒后自动消失
+  useEffect(() => {
+    if (errorMessage) {
+      const timer = setTimeout(() => {
+        setErrorMessage('');
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [errorMessage]);
+
+  // 成功提示3秒后自动消失
+  useEffect(() => {
+    if (successMessage) {
+      const timer = setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [successMessage]);
 
   useEffect(() => {
     if (!isAuthenticated()) {
@@ -33,28 +58,91 @@ function Products() {
       const data = await apiClient.get('/api/products/admin/all');
       setProducts(data || []);
     } catch (error) {
-      alert(error.message || '加载失败');
+      setErrorMessage(error.message || '加载失败');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // 检查文件类型
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      setErrorMessage('不支持的图片格式，请选择 JPG、PNG、GIF 或 WEBP 格式');
+      return;
+    }
+
+    // 检查文件大小 (5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      setErrorMessage('图片文件不能超过 5MB');
+      return;
+    }
+
+    setImageFile(file);
+    
+    // 创建预览
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const uploadImage = async () => {
+    if (!imageFile) return null;
+
+    setUploading(true);
+    try {
+      const formDataUpload = new FormData();
+      formDataUpload.append('file', imageFile);
+
+      const response = await apiClient.post('/api/upload/image', formDataUpload, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      return response.url; // 返回图片URL
+    } catch (error) {
+      setErrorMessage(error.message || '图片上传失败');
+      return null;
+    } finally {
+      setUploading(false);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // 如果有新选择的图片，先上传
+      let imageUrl = formData.image_url;
+      if (imageFile) {
+        const uploadedUrl = await uploadImage();
+        if (uploadedUrl) {
+          imageUrl = uploadedUrl;
+        } else {
+          return; // 上传失败，不继续提交
+        }
+      }
+
+      const submitData = { ...formData, image_url: imageUrl };
+
       if (editingProduct) {
-        await apiClient.put(`/api/products/${editingProduct.id}`, formData);
-        alert('更新成功');
+        await apiClient.put(`/api/products/${editingProduct.id}`, submitData);
+        setSuccessMessage('更新成功');
       } else {
-        await apiClient.post('/api/products/', formData);
-        alert('创建成功');
+        await apiClient.post('/api/products/', submitData);
+        setSuccessMessage('创建成功');
       }
       setShowForm(false);
       setEditingProduct(null);
       resetForm();
       loadProducts();
     } catch (error) {
-      alert(error.message || '操作失败');
+      setErrorMessage(error.message || '操作失败');
     }
   };
 
@@ -68,6 +156,8 @@ function Products() {
       image_url: product.image_url || '',
       is_active: product.is_active !== false
     });
+    setImageFile(null);
+    setImagePreview(product.image_url || '');
     setShowForm(true);
   };
 
@@ -77,10 +167,10 @@ function Products() {
     }
     try {
       await apiClient.delete(`/api/products/${id}`);
-      alert('删除成功');
+      setSuccessMessage('删除成功');
       loadProducts();
     } catch (error) {
-      alert(error.message || '删除失败');
+      setErrorMessage(error.message || '删除失败');
     }
   };
 
@@ -89,9 +179,10 @@ function Products() {
       await apiClient.patch(`/api/products/${product.id}/toggle`, {
         is_active: !product.is_active
       });
+      setSuccessMessage(product.is_active ? '已下架' : '已上架');
       loadProducts();
     } catch (error) {
-      alert(error.message || '操作失败');
+      setErrorMessage(error.message || '操作失败');
     }
   };
 
@@ -100,15 +191,15 @@ function Products() {
     if (stock === null) return;
     const stockNum = parseInt(stock);
     if (isNaN(stockNum) || stockNum < 0) {
-      alert('请输入有效的库存数量');
+      setErrorMessage('请输入有效的库存数量');
       return;
     }
     try {
       await apiClient.patch(`/api/products/${product.id}/stock`, { stock: stockNum });
-      alert('更新成功');
+      setSuccessMessage('更新成功');
       loadProducts();
     } catch (error) {
-      alert(error.message || '更新失败');
+      setErrorMessage(error.message || '更新失败');
     }
   };
 
@@ -121,6 +212,8 @@ function Products() {
       image_url: '',
       is_active: true
     });
+    setImageFile(null);
+    setImagePreview('');
   };
 
   return (
@@ -135,6 +228,18 @@ function Products() {
           </button>
         </div>
       </div>
+
+      {errorMessage && (
+        <div className="error-message">
+          {errorMessage}
+        </div>
+      )}
+
+      {successMessage && (
+        <div className="success-message">
+          {successMessage}
+        </div>
+      )}
 
       {showForm && (
         <div className="modal">
@@ -178,12 +283,18 @@ function Products() {
                 />
               </div>
               <div className="form-group">
-                <label>图片URL</label>
+                <label>商品图片</label>
                 <input
-                  type="url"
-                  value={formData.image_url}
-                  onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
+                  type="file"
+                  accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+                  onChange={handleImageChange}
                 />
+                {imagePreview && (
+                  <div className="image-preview">
+                    <img src={imagePreview} alt="预览" />
+                  </div>
+                )}
+                {uploading && <p className="uploading-text">正在上传图片...</p>}
               </div>
               <div className="form-group">
                 <label>
@@ -196,7 +307,9 @@ function Products() {
                 </label>
               </div>
               <div className="form-actions">
-                <button type="submit">保存</button>
+                <button type="submit" disabled={uploading}>
+                  {uploading ? '上传中...' : '保存'}
+                </button>
                 <button type="button" onClick={() => { setShowForm(false); setEditingProduct(null); resetForm(); }}>
                   取消
                 </button>

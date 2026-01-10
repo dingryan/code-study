@@ -34,7 +34,9 @@ def init_test_data():
         """))
         table_exists = result.scalar() > 0
         if not table_exists:
-            print("❌ products 表不存在，请先运行: python scripts/init_db.py")
+            print("❌ products 表不存在，请先执行数据库初始化：")
+            print("   mysql -u用户名 -p < database/init.sql")
+            print("   或在 MySQL 客户端中：source database/init.sql")
             return
         
         # 检查是否已有数据

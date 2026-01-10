@@ -52,11 +52,19 @@ function Login() {
         password 
       });
       
+      console.log('🔍 [Login] 登录响应数据:', result);
+      console.log('🔍 [Login] access_token:', result.access_token);
+      console.log('🔍 [Login] user:', result.user);
+      
       setToken(result.access_token);
       setUser(result.user);
       
+      console.log('✅ [Login] Token 已保存到 localStorage');
+      console.log('🔍 [Login] 验证保存的 token:', localStorage.getItem('token'));
+      
       navigate('/products');
     } catch (error) {
+      console.error('❌ [Login] 登录失败:', error);
       setErrorMessage(error.message || '登录失败，请检查用户名和密码');
     } finally {
       setLoading(false);

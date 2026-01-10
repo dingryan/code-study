@@ -6,6 +6,7 @@ Page({
   data: {
     action: 'add',
     addressId: null,
+    from: '', // 添加来源标记
     name: '',
     phone: '',
     province: '',
@@ -22,6 +23,10 @@ Page({
     if (options.id) {
       this.setData({ addressId: parseInt(options.id) });
       this.loadAddress();
+    }
+    // 记录来源页面
+    if (options.from) {
+      this.setData({ from: options.from });
     }
   },
   
@@ -127,12 +132,18 @@ Page({
         is_default: this.data.isDefault
       };
       
+      let newAddress;
       if (this.data.action === 'add') {
-        await api.post('/api/addresses/', addressData);
+        newAddress = await api.post('/api/addresses/', addressData);
         wx.showToast({ title: '添加成功', icon: 'success' });
       } else {
-        await api.put(`/api/addresses/${this.data.addressId}`, addressData);
+        newAddress = await api.put(`/api/addresses/${this.data.addressId}`, addressData);
         wx.showToast({ title: '更新成功', icon: 'success' });
+      }
+      
+      // 如果来自订单确认页，保存新地址到全局数据
+      if (this.data.from === 'checkout' && this.data.action === 'add') {
+        getApp().globalData.selectedAddress = newAddress;
       }
       
       setTimeout(() => {

@@ -7,8 +7,7 @@ Page({
     phone: '',
     code: '',
     countdown: 0,
-    codeSent: false,
-    devCode: ''  // 开发环境显示的验证码
+    codeSent: false
   },
   
   onLoad() {
@@ -52,18 +51,27 @@ Page({
     try {
       const result = await auth.sendCode(phone);
       
-      // 开发环境显示验证码
-      if (result.code) {
-        this.setData({ 
-          codeSent: true,
-          devCode: result.code,
-          countdown: 60
-        });
-        wx.showToast({ 
-          title: `验证码: ${result.code}`, 
-          icon: 'none',
-          duration: 3000
-        });
+      // 判断是否为开发环境
+      const apiBaseUrl = getApp().globalData.apiBaseUrl;
+      const isDev = apiBaseUrl.includes('localhost') || apiBaseUrl.includes('127.0.0.1');
+      
+      if (result.verifyCode) {
+        if (isDev) {
+          // 开发环境：静默自动填充验证码到输入框
+          this.setData({ 
+            codeSent: true,
+            code: result.verifyCode,  // 直接填充到输入框
+            countdown: 60
+          });
+          // 不显示任何提示，静默填充
+        } else {
+          // 生产环境：只显示已发送
+          this.setData({ 
+            codeSent: true,
+            countdown: 60
+          });
+          wx.showToast({ title: '验证码已发送', icon: 'success' });
+        }
       } else {
         this.setData({ 
           codeSent: true,
@@ -115,10 +123,21 @@ Page({
       await auth.phoneLogin(phone, code);
       wx.showToast({ title: '登录成功', icon: 'success' });
       
-      // 延迟返回上一页
-      setTimeout(() => {
-        wx.navigateBack();
-      }, 1500);
+      // 检查是否有待处理订单
+      const app = getApp();
+      if (app.globalData.pendingOrder && app.globalData.pendingOrder.items) {
+        // 有待处理订单，跳转到订单确认页
+        setTimeout(() => {
+          wx.redirectTo({
+            url: '/pages/checkout/checkout'
+          });
+        }, 1500);
+      } else {
+        // 无待处理订单，返回上一页
+        setTimeout(() => {
+          wx.navigateBack();
+        }, 1500);
+      }
       
     } catch (error) {
       wx.showToast({ title: error.message || '登录失败', icon: 'none' });

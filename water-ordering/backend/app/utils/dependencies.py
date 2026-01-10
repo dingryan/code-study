@@ -44,12 +44,19 @@ def get_current_admin_user(
     db: Session = Depends(get_db)
 ) -> AdminUser:
     """获取当前后台管理员用户"""
+    print(f"🔍 [Auth] 收到 token: {token[:50]}..." if len(token) > 50 else f"🔍 [Auth] 收到 token: {token}")
+    
     try:
         payload = verify_token(token)
+        print(f"🔍 [Auth] Token 解析成功，payload: {payload}")
+        
         admin_id = payload.get("sub")
         token_type = payload.get("type")
         
+        print(f"🔍 [Auth] admin_id: {admin_id}, token_type: {token_type}")
+        
         if admin_id is None or token_type != "admin":
+            print(f"❌ [Auth] 认证失败: admin_id={admin_id}, token_type={token_type}")
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="无效的认证信息"
@@ -57,14 +64,20 @@ def get_current_admin_user(
         
         admin_user = db.query(AdminUser).filter(AdminUser.id == int(admin_id)).first()
         if admin_user is None:
+            print(f"❌ [Auth] 管理员用户不存在: admin_id={admin_id}")
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="管理员用户不存在"
             )
+        
+        print(f"✅ [Auth] 认证成功: username={admin_user.username}")
         return admin_user
     except HTTPException:
         raise
     except Exception as e:
+        print(f"❌ [Auth] Token 验证异常: {type(e).__name__}: {str(e)}")
+        import traceback
+        traceback.print_exc()
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail=str(e)

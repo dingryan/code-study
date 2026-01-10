@@ -85,9 +85,10 @@ app.include_router(payment.router, prefix="/api/payment", tags=["支付"])
 app.include_router(upload.router, prefix="/api/upload", tags=["上传"])
 
 # 静态文件服务
-import os
-if os.path.exists("uploads"):
-    app.mount("/static", StaticFiles(directory="uploads"), name="static")
+from pathlib import Path
+static_dir = Path(__file__).parent.parent / "static"
+if static_dir.exists():
+    app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 
 
 @app.get("/docs", include_in_schema=False)

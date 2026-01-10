@@ -7,7 +7,7 @@ debug: true
 environment: "dev"  # dev 开发环境, prod 生产环境
 
 # 数据库配置（MySQL）
-database_url: "mysql+pymysql://admin:123456@127.0.0.1:3306/water_ordering?charset=utf8mb4"
+database_url: "mysql+pymysql://root:123456@127.0.0.1:3306/water_ordering?charset=utf8mb4"
 
 # JWT 配置
 secret_key: "development-secret-key-change-in-production-min-32-chars"

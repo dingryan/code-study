@@ -79,19 +79,6 @@
   color: #999;
 }
 
-.dev-code {
-  margin-top: 20rpx;
-  padding: 20rpx;
-  background: #fff3cd;
-  border-radius: 10rpx;
-  text-align: center;
-}
-
-.dev-code-text {
-  font-size: 24rpx;
-  color: #856404;
-}
-
 .login-btn {
   width: 100%;
   height: 88rpx;

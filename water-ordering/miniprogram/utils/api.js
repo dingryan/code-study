@@ -22,10 +22,11 @@ class ApiClient {
         },
         success: (res) => {
           if (res.statusCode === 200) {
-            if (res.data.code === 200) {
+            // 后端返回 code: "0" 表示成功
+            if (res.data.code == 0 || res.data.code === "0") {
               resolve(res.data.data);
             } else {
-              reject(new Error(res.data.message || '请求失败'));
+              reject(new Error(res.data.message || res.data.msg || '请求失败'));
             }
           } else if (res.statusCode === 401) {
             this.handleAuthError();

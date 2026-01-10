@@ -51,6 +51,12 @@ Page({
           addresses,
           selectedAddress: defaultAddress
         });
+      } else {
+        // 没有地址
+        this.setData({ 
+          addresses: [],
+          selectedAddress: null
+        });
       }
     } catch (error) {
       wx.showToast({ title: error.message || '加载地址失败', icon: 'none' });
@@ -70,15 +76,30 @@ Page({
     });
   },
   
+  addAddress() {
+    wx.navigateTo({
+      url: '/pages/address/edit?action=add&from=checkout'
+    });
+  },
+  
   onShow() {
+    // 从地址相关页面返回时，重新加载地址
     const pages = getCurrentPages();
     const prevPage = pages[pages.length - 2];
+    
+    // 从地址列表页返回
     if (prevPage && prevPage.route === 'pages/address/address') {
       const selectedAddress = getApp().globalData.selectedAddress;
       if (selectedAddress) {
         this.setData({ selectedAddress });
         getApp().globalData.selectedAddress = null;
       }
+    }
+    
+    // 从地址编辑页返回（新增或修改地址后）
+    if (prevPage && prevPage.route === 'pages/address/edit') {
+      // 重新加载地址列表
+      this.loadAddresses();
     }
   },
   
